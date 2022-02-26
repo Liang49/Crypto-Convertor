@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 
 export default function App() {
   const [coin, setCoin] = useState([]);
+  const [num, setNum] = useState([]);
+  const [price, setPrice] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
       const coin = await fetch(
@@ -11,31 +13,50 @@ export default function App() {
       const json = await coin.json();
 
       setCoin(json);
-      console.log(setCoin);
+      setPrice(json.current_price);
+
+      console.log(json);
     };
 
     fecthData();
   }, []);
+
+  const handleClick = (e) => {
+    console.log(e.target.value);
+  };
   return (
     <div className="App">
       <h1>Convert</h1>
       <form>
         <div>
           <label>Cyrptocurrency</label>
-          <input />
-          <select style={{ textTransform: "uppercase" }}>
+          <input
+            type="number"
+            onChange={(e) => {
+              setNum(e.target.value);
+              console.log(num);
+            }}
+          />
+
+          <select onChange={handleClick} style={{ textTransform: "uppercase" }}>
             {coin.map((item) => (
-              <option value="bitcoin">
+              <option key={item.id} value={item.id}>
                 {item.id} - {item.symbol}
+                {num * item.current_price}
               </option>
             ))}
           </select>
         </div>
-        <label>money</label>
-        <input />
-        <select style={{ textTransform: "uppercase" }}>
-          <option value="usd">USD</option>
-        </select>
+
+        <div>
+          <label>money</label>
+
+          <input value={num * price} />
+
+          <select style={{ textTransform: "uppercase" }}>
+            <option value="usd">USD</option>
+          </select>
+        </div>
       </form>
     </div>
   );
