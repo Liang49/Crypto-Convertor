@@ -1,4 +1,19 @@
+* {
+  margin: 0;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
+  background-image: url(./bitcoin.jpg);
+}
+.cyrpto {
+  border: solild silver;
+  font-size: 25px;
+  border-radius: 10px;
+}
+
+.money {
+  font-size: 25px;
+  border-radius: 10px;
 }

@@ -23,39 +23,63 @@ export default function App() {
 
   const handleClick = (e) => {
     console.log(e.target.value);
+    setPrice(e.target.value);
   };
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className="App">
-      <h1>Convert</h1>
+      <h1>Converter</h1>
+
       <form>
         <div>
-          <label>Cyrptocurrency</label>
-          <input
-            type="number"
-            onChange={(e) => {
-              setNum(e.target.value);
-              console.log(num);
-            }}
-          />
+          <label>Enter Amount</label>
+          <div>
+            <input
+              className="cyrpto"
+              type="number"
+              onChange={(e) => {
+                setNum(e.target.value);
+              }}
+            />
 
-          <select onChange={handleClick} style={{ textTransform: "uppercase" }}>
-            {coin.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.id} - {item.symbol}
-                {num * item.current_price}
-              </option>
-            ))}
-          </select>
+            <select
+              className="cyrpto"
+              onChange={handleClick}
+              style={{ textTransform: "uppercase" }}
+            >
+              <option>Select Cyrptocurrency</option>
+
+              {coin.map((item, index) => (
+                <option key={item.id} value={item.current_price}>
+                  {item.id} - {item.symbol}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div>
-          <label>money</label>
+          <label style={{ fontSize: 60 }}>=</label>
+          <div>
+            <input
+              className="money"
+              onChange={handleClick}
+              value={isNaN(num * price) ? "" : num * price}
+              readOnly
+            />
 
-          <input value={num * price} />
-
-          <select style={{ textTransform: "uppercase" }}>
-            <option value="usd">USD</option>
-          </select>
+            <select
+              className="money"
+              onChange={handleChange}
+              style={{ textTransform: "uppercase" }}
+            >
+              <option>USD</option>
+            </select>
+          </div>
         </div>
       </form>
     </div>
